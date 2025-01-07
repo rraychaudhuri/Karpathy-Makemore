@@ -1,7 +1,8 @@
 import os
-import logging
 import configparser
 
+
+start_ch = "."
 
 
 def readConfig(projectRoot=None):
@@ -31,9 +32,19 @@ def loadData(projectRoot=None):
 
     all_data = ""    
     with open(datafile, "r") as fp:
-        all_data = "".join(fp.readlines())
+        all_data = fp.readlines()
+    return [name.strip() for name in all_data]
 
-    return all_data
+
+def get_vocab(all_data):
+    """
+    Given a list of names returns all the unique characters in a set
+    Includes "." as the start character
+    """
+    vocab = set("".join(all_data))
+    vocab.add(start_ch)
+    return vocab
+
 
 
 def foo():
@@ -42,4 +53,4 @@ def foo():
 
 if __name__ == '__main__':
     all_data = loadData()
-    print(all_data[:100])
+    print(all_data[:10])
