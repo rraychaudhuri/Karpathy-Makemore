@@ -46,6 +46,23 @@ def get_vocab(all_data):
     return vocab
 
 
+def get_stoi_itos(vocab):
+    stoi = {ch:i for i, ch in enumerate(sorted(vocab))}
+    itos = {i:ch for ch,i in stoi.items()}
+    return stoi, itos
+
+
+def get_everything(projectRoot):
+    """
+    Kitchen sink that retuns all data related stuff, called from Notebooks
+    """
+    all_data = loadData(projectRoot)
+    vocab = get_vocab(all_data)
+    stoi, itos = get_stoi_itos(vocab)
+
+    return all_data, vocab, stoi, itos
+
+
 
 def foo():
     print("Hello World !!")
