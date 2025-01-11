@@ -30,6 +30,7 @@ def get_samples(data, encode, context_size=3, start_ch="."):
     xs, ys = [], []
     for name in data:
         context = [start_ch] * context_size
+        name = name + start_ch
         for ch in name:
             xs.append(encode(context))
             ys.append(encode(ch))
