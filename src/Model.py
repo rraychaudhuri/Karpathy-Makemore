@@ -188,6 +188,7 @@ def estimateError(X, Y, model, batch_size=100, loop_count=100, d=default_device)
 
         logits = model(X_i)
         lossi.append(F.cross_entropy(logits, Y_i).item()) 
+    model.train()
     return sum(lossi) / len(lossi)
 
 
@@ -195,7 +196,7 @@ def estimateError(X, Y, model, batch_size=100, loop_count=100, d=default_device)
 def generate(model, encode_func, decode_func, start_ch=".", context_length=context_length, count=10, max_char=10, d=default_device):
 
     retval = []
-
+    model.eval()
     for i in range(count):
         current_context = encode_func([start_ch] * context_length)
         w = []
@@ -212,4 +213,5 @@ def generate(model, encode_func, decode_func, start_ch=".", context_length=conte
             current_context.append(ix)
 
         retval.append("".join(w))
+    model.train()
     return retval
