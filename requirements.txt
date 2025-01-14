@@ -11,3 +11,5 @@ seaborn
 torch
 torchvision
 torchaudio
+
+ipywidgets

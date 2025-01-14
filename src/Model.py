@@ -26,6 +26,7 @@ class Linear(Layer):
         super().__init__()
         self.bias = bias
 
+        scale_factor = (1/math.sqrt(input_dim)) if scale_factor ==-1 else scale_factor
         self.W = torch.randn(input_dim, output_dim, device=d) * gain * scale_factor
     
         if self.bias is True:
@@ -138,6 +139,15 @@ class BatchNorm1d(Layer):
     def parameters(self):
         return [self.bngain, self.bnbias]
     
+
+
+class NoOp(Layer):
+    def __init__(self):
+        super().__init__()
+    
+    def __call__(self, X, *args, **kwds):
+        self.out = X
+        return self.out
 
 
 class Model:
